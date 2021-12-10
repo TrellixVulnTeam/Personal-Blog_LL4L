@@ -1,0 +1,234 @@
+@use "sass:math";
+
+// Подключение миксинов ===========================================================================================================================================================================================================================================================================
+@import "base/mixins";
+
+// Подключение шрифтов ===========================================================================================================================================================================================================================================================================
+//&display=swap - добавить при подключении через плагин
+@import "base/fonts";
+@import url(https://fonts.googleapis.com/css?family=Roboto:300,regular,500&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Lato:regular&display=swap);
+
+// Подключение иконочных шрифтов ==============================================================================================================================================================================================================================================================================
+//@import "base/icons";
+
+// Шрифт по умолчанию ==============================================================================================================================================================================================================================================================================
+$fontFamily: "Roboto";
+$fontSize: rem(14); // где 14(px) - размер шрифта по умолчанию из макета
+
+// НАСТРОЙКИ ===============================================================================================================================================================================================================================================================================================
+// Минимальная ширина страницы
+$minWidth: 320;
+// Ширина полотна (макета)
+$maxWidth: 1920;
+// Ширина ограничивающего контейнера (0 = нет ограничения)
+$maxWidthContainer: 1000;
+// Общий отступ у контейнера
+// (30 = по 15px слева и справа, 0 = нет отступа)
+$containerPadding: 0;
+
+// Тип адаптива:
+// 1 = отзывчивость (у контейнера нет брейкпоинтов),
+// 2 = по брейк-поинтам (контейнер меняет свою ширину по брейк-поинтам)
+$responsiveType: 2;
+
+// Ширина страбатывания первого брейкпоинта
+$containerWidth: $maxWidthContainer + $containerPadding;
+
+// Брейк-поинты
+$pc: em($containerWidth); // ПК, ноутбуки, некоторые планшеты в горизонтальном положении
+$tablet: em(991.98); // Планшеты, некоторые телефоны в горизонтальном положении
+$mobile: em(767.98); // Телефоны L
+$mobileSmall: em(479.98); // Телефоны S
+
+// Основной цвет шрифта
+$mainColor: #D2D2D2;
+
+// Обнуление и общие параметры ============================================================================================================================================================================================== =============================================================================================== ===============================================================================================
+@import "base/null";
+
+body {
+	color: $mainColor;
+	// Скролл заблокирован
+	.lock & {
+		overflow: hidden;
+	}
+}
+
+// Оболочка ============================================================================================================================================================================================================================================================================================================================================================================================================================================
+.wrapper {
+	background-color: #181818;
+	min-height: 100%;
+	display: grid;
+	overflow: hidden;
+	grid-template-rows: auto 1fr auto;
+	// Сайт загружен
+	.loaded & {
+	}
+}
+
+// Ограничивающий контейнер ===========================================================================================================
+
+/*
+(i) Стили будут применяться ко 
+всем классам содержащим *__container
+Например header__container, main__container и т.д.
+Снипет (HTML): cnt
+*/
+@if ($responsiveType==1) {
+	// Отзывчивая
+	[class*="__container"] {
+		@if ($maxWidthContainer>0) {
+			max-width: rem($maxWidthContainer);
+			box-sizing: content-box;
+			margin: 0 auto;
+		}
+		@if ($containerPadding>0) {
+			padding: 0 rem(math.div($containerPadding, 2));
+		}
+	}
+} @else {
+	// По брейк-поинтам
+	[class*="__container"] {
+		margin: 0 auto;
+		@if ($maxWidthContainer>0) {
+			max-width: rem($maxWidthContainer);
+			box-sizing: content-box;
+		} @else {
+			@if ($containerPadding>0) {
+				padding: 0 rem(math.div($containerPadding, 2));
+			}
+		}
+		@media (max-width: $pc) {
+			max-width: rem(970);
+		}
+		@media (max-width: $tablet) {
+			max-width: rem(750);
+		}
+		@media (max-width: $mobile) {
+			max-width: none;
+			@if ($containerPadding>0 and $maxWidthContainer>0) {
+				padding: 0 rem(math.div($containerPadding, 2));
+			}
+		}
+	}
+}
+
+// Подключение базовых стилей, шаблонов (заготовок) и вспомагательных классов
+// Для подключения/отключения конкретных стилей смотри base.scss
+@import "base";
+
+// Подключение стилей отдельных блоков
+@import "header";
+@import "footer";
+
+// Подключение стилей отдельных страниц
+@import "home";
+
+// Основной блок страницы ====================================================================================================
+.page {
+	min-width: 0;
+	display: flex;
+	&__side {
+		flex: 0 0 300px;
+		text-align: center;
+		background: #202020;
+		box-shadow: 5px 0px 15px rgba(5, 5, 5, 0.1);
+	}
+
+	&__item {
+		margin-top: -50px;
+	}
+
+	&__cover {
+		
+	}
+
+	&__avatar {
+		display: inline-block;
+		border: 2px solid #FFFFFF;
+		border-radius: 50%;
+		overflow: hidden;
+		box-shadow: 0 7px 20px rgba(0, 0, 0, .25);
+		img {
+			height: 100px;
+			width: 100px;
+		}
+	}
+
+	&__title {
+		margin: 20px 0px 0px 0px;
+		font-style: normal;
+		font-weight: normal;
+		font-size: 18px;
+		line-height: 21px;
+		color: #FFFFFF;
+	}
+
+	&__subtitle {
+		margin: 5px 0px 0px 0px;
+		font-style: normal;
+		font-weight: 300;
+		font-size: 14px;
+		line-height: 16px;
+		color: #DEDEDE;
+	}
+
+	&__icons {
+		display: flex;
+		justify-content: center;
+		margin: 20px 0px 0px 0px;
+	}
+
+	&__icon {
+		margin: 0px 8px;
+	}
+
+	&__text {
+		font-style: normal;
+		font-weight: normal;
+		font-size: 12px;
+		line-height: 18px;
+		margin: 60px 20px 0px 20px;
+		color: #FFFFFF;
+	}
+
+	&__buttons {
+		display: flex;
+		justify-content: space-between;
+		margin: 60px 25px 0px 25px;
+	}
+}
+
+.btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	box-shadow: 0px 7px 17px -10px rgba(242, 63, 63, 0.2);
+	border-radius: 25px;
+	width: 120px;
+	height: 40px;
+	cursor: pointer;
+
+	&__text {
+		font-style: normal;
+		font-weight: 500;
+		font-size: 12px;
+		line-height: 14px;
+		color: #FFFFFF;
+	}
+}
+
+.btn--red {
+	background: #ED3024;
+	&:hover {
+		background: darken($color: #ED3024, $amount: 15);
+	}
+}
+
+.btn--blue {
+	background: #3137C9;
+	&:hover {
+		background: darken($color: #3137C9, $amount: 15);
+	}
+}

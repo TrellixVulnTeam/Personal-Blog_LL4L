@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+@@include('html/_head.htm',{
+"title":"Главная"
+})
+
+<body>
+	<div class="wrapper">
+		@@include('html/_header.htm',{})
+		<main class="page __container">
+			<div class="page__side _side-wrapper">
+				<img src="img/page__cover.jpg" alt="" class="page__cover">
+				<div class="page__item _side-item">
+					<div class="page__avatar"><img src="img/page__avatar.jpg" alt=""></div>
+					<div class="page__title">Эмиль Марков</div>
+					<div class="page__subtitle">блог front-end разработчика</div>
+					<div class="page__icons">
+						<div class="page__icon"><img src="img/icon-instagram.svg" alt="instagram"></div>
+						<div class="page__icon"><img src="img/icon-vk.svg" alt="vk"></div>
+						<div class="page__icon"><img src="img/icon-pinterest.svg" alt="pinterest"></div>
+					</div>
+					<div class="page__text">Front-end разработчик. Практик верстки сайтов. Созданием сайтов занимаюсь с
+						2012 года. Работал в нескольких ИТ компаниях и наработал более 10 000 часов в создании сайтов
+						различной сложности.</div>
+					<div class="page__buttons">
+						<div class="btn btn--red">
+							<div class="btn__text">Мои работы</div>
+						</div>
+						<div class="btn btn--blue">
+							<div class="btn__text">Написать мне</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="page__body"></div>
+		</main>
+		@@include('html/_footer.htm',{})
+	</div>
+	<!-- @@include('html/_popup.htm',{}) -->
+	@@include('html/_js.htm',{})
+</body>
+
+</html>
